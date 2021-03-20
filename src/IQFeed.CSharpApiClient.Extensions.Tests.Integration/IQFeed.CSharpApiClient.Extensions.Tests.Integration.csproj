@@ -2,6 +2,7 @@
     <PropertyGroup>
         <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
