@@ -23,7 +23,7 @@ namespace IQFeed.CSharpApiClient.Lookup.Historical.Messages
             RequestId = requestId;
         }
 
-        public DateTime Timestamp { get; private set; }
+        public DateTime Timestamp { get; set; }
         public double High { get; private set; }
         public double Low { get; private set; }
         public double Open { get; private set; }
