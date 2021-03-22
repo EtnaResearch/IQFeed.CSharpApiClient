@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using IQFeed.CSharpApiClient.Extensions;
 using IQFeed.CSharpApiClient.Socket;
@@ -37,7 +39,7 @@ namespace IQFeed.CSharpApiClient
                              "1.0.0.0";
 
             var iqConnectParameters = $"-product {productId} -version {productVersion} -login {login} -password {password} -autoconnect";
-            Process.Start("IQConnect.exe", iqConnectParameters);
+            Process.Start(Path.Combine(RuntimeLocation(), "IQConnect.exe"), iqConnectParameters);
 
             WaitForAdminPortReady(connectionTimeoutMs, retry);
             WaitForServerConnectedStatus(IQFeedDefault.Hostname, IQFeedDefault.AdminPort);
@@ -78,6 +80,12 @@ namespace IQFeed.CSharpApiClient
                 if (message.Status == StatsStatusType.Connected)
                     manualResetEvent.Set();
             }
+        }
+
+        private static string RuntimeLocation()
+        {
+            var location = Assembly.GetExecutingAssembly().Location;
+            return location.Substring(0, location.LastIndexOf("\\", StringComparison.Ordinal));
         }
     }
 }
